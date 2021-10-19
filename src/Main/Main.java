@@ -1,8 +1,6 @@
 package Main;
-public class Main
-{
-    public static void main(String[] args)
-    {
+public class Main {
+    public static void main(String[] args){
         int i = 0;
         Blackjack Mort = new Blackjack();
         Mort.gameStartBlackjack();
