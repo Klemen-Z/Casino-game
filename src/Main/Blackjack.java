@@ -1,6 +1,5 @@
 package Main;
 import org.jetbrains.annotations.NotNull;
-
 import java.util.*;
 public class Blackjack {
     //arraylist generator
