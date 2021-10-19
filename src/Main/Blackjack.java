@@ -148,7 +148,9 @@ public class Blackjack {
     }
     //computer's card picker
     public void dealerCard(){
-        int temp = 0;
+        cardsD.clear();
+        pickedCardsTypeD.clear();
+        int temp;
         int DChoice1 = Randomizer.nextInt(3);
         int DChoice2 = Randomizer.nextInt(12);
         int index = pickedCardsTypeD.size();
@@ -173,7 +175,9 @@ public class Blackjack {
     }
     //player's card picker
     public void playerCard(){
-        int temp = 0;
+        pickedCardsTypeP.clear();
+        cardsP.clear();
+        int temp;
         int PChoice1 = Randomizer.nextInt(3);
         int PChoice2 = Randomizer.nextInt(12);
         int index = pickedCardsTypeP.size();
@@ -198,13 +202,23 @@ public class Blackjack {
     }
     //End game
     public void gameEnd(){
-        if (pointsD > 21){
-            System.out.println("Player Wins");
+        if (this.pointsD > 21){
+            System.out.println("Dealer Bust! Player Wins!");
             arrayClearBlackjack();
             setGameShouldWork(false);
         }
-        else if(pointsP > 21){
-            System.out.println("Dealer Wins");
+        else if(this.pointsP > 21){
+            System.out.println("Player Bust! Dealer Wins!");
+            arrayClearBlackjack();
+            setGameShouldWork(false);
+        }
+        else if(this.pointsP == 21){
+            System.out.println("Blackjack! Player Wins");
+            arrayClearBlackjack();
+            setGameShouldWork(false);
+        }
+        else if(this.pointsD == 21){
+            System.out.println("Blackjack! Dealer Wins");
             arrayClearBlackjack();
             setGameShouldWork(false);
         }

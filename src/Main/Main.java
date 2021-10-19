@@ -3,14 +3,16 @@ public class Main
 {
     public static void main(String[] args)
     {
+        int i = 0;
         Blackjack Mort = new Blackjack();
         Mort.gameStartBlackjack();
         while (Mort.getGameShouldWork()) {
-            for (int i = 0; i < 2; i++) {
+            if(i < 4){
                 Mort.dealerCard();
                 Mort.playerCard();
-                Mort.gameEnd();
+                i++;
             }
+            Mort.gameEnd();
         }
     }
 }
