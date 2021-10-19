@@ -129,6 +129,10 @@ public final class JackManager {
             }
             //remove eliminated players from Arraylist players
             players.removeAll(killed);
+            if(players.size() == 1){
+                System.out.println("Computer wins by Default!");
+                return;
+            }
             //Did all players pass their turn?
             if(passed.size() == players.size() - 1){
                 //reveal dealer's second card
