@@ -1,7 +1,7 @@
 package Main;
 import org.jetbrains.annotations.NotNull;
 import java.util.*;
-public class Blackjack {
+public final class Blackjack {
     //arraylist generator
     private ArrayList<Integer> pickedCardsTypeD = new ArrayList<>();
     private ArrayList<Integer> pickedCardsTypeP = new ArrayList<>();
@@ -13,8 +13,8 @@ public class Blackjack {
     private ArrayList<Integer> cardsP = new ArrayList<>();
     private ArrayList<Integer> cardsD = new ArrayList<>();
     //Vars for points
-    protected boolean aceTimeP;
-    protected boolean aceTimeD;
+    boolean aceTimeP;
+    boolean aceTimeD;
     private int pointsP = 0;
     private int pointsD = 0;
     //Vars for gameloop
