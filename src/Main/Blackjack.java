@@ -1,4 +1,6 @@
 package Main;
+import org.jetbrains.annotations.NotNull;
+
 import java.util.*;
 public class Blackjack {
     //arraylist generator
@@ -16,6 +18,8 @@ public class Blackjack {
     protected boolean aceTimeD;
     private int pointsP = 0;
     private int pointsD = 0;
+    //Vars for gameloop
+    private boolean gameShouldWork = true;
     //clearing of array contents
     public void arrayClearBlackjack(){
         cardsP.clear();
@@ -74,6 +78,9 @@ public class Blackjack {
     public int getPointsD() {
         return pointsD;
     }
+    public boolean getGameShouldWork() {
+        return gameShouldWork;
+    }
     public ArrayList<Integer> getSpadeCards() {
         return spadeCards;
     }
@@ -87,6 +94,9 @@ public class Blackjack {
         return clubsCards;
     }
     //setters for emergencies
+    public void setGameShouldWork(boolean gameShouldWork) {
+        this.gameShouldWork = gameShouldWork;
+    }
     public void setCardsP(ArrayList<Integer> cardsP) {
         this.cardsP = cardsP;
     }
@@ -187,11 +197,21 @@ public class Blackjack {
         System.out.println("Player points: " + getPointsP());
     }
     //End game
-    public void gameEnd{
-
+    public void gameEnd(){
+        if (pointsD > 21){
+            System.out.println("Player Wins");
+            setGameShouldWork(false);
+        }
+        else if(pointsP > 21){
+            System.out.println("Dealer Wins");
+            setGameShouldWork(false);
+        }
+        else{
+            setGameShouldWork(true);
+        }
     }
     //Which card was chosen checker
-    private String cardCheck(String CheckForWho){
+    private String cardCheck(@NotNull String CheckForWho){
         String b;
         String a;
         String Result;
