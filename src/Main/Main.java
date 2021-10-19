@@ -7,7 +7,7 @@ public class Main
         Blackjack Mort = new Blackjack();
         Mort.gameStartBlackjack();
         while (Mort.getGameShouldWork()) {
-            if(i < 4){
+            if(i < 10){
                 Mort.dealerCard();
                 Mort.playerCard();
                 i++;
