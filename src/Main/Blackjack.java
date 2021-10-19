@@ -200,10 +200,12 @@ public class Blackjack {
     public void gameEnd(){
         if (pointsD > 21){
             System.out.println("Player Wins");
+            arrayClearBlackjack();
             setGameShouldWork(false);
         }
         else if(pointsP > 21){
             System.out.println("Dealer Wins");
+            arrayClearBlackjack();
             setGameShouldWork(false);
         }
         else{

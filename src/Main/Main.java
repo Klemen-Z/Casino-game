@@ -4,11 +4,13 @@ public class Main
     public static void main(String[] args)
     {
         Blackjack Mort = new Blackjack();
-        while (Mort.getGameShouldWork()){
-            Mort.gameStartBlackjack();
-            Mort.dealerCard();
-            Mort.playerCard();
-            Mort.gameEnd();
+        Mort.gameStartBlackjack();
+        while (Mort.getGameShouldWork()) {
+            for (int i = 0; i < 2; i++) {
+                Mort.dealerCard();
+                Mort.playerCard();
+                Mort.gameEnd();
+            }
         }
     }
 }
