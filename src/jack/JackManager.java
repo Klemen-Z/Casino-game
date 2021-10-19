@@ -1,25 +1,20 @@
-package main;
-
+package jack;
+//import
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
-
+//Game Logic
 public final class JackManager {
-
+    //input reader
     private final BufferedReader reader;
-
+    //variables
     private int amountOfPlayers;
-
     private final ArrayList<Player> players = new ArrayList<>();
-
     private final CardTypes secretCard;
-
-    private boolean openHouse;
-
     private Player dealer;
-
+    //Game start
     public JackManager() throws IOException {
         reader = new BufferedReader(new InputStreamReader(System.in));
         askForPlayerCount(100);
@@ -37,7 +32,7 @@ public final class JackManager {
         System.out.println("Computer drew the secret Card");
         game();
     }
-
+    //How many players are playing
     private void askForPlayerCount(int maxPlayer) throws IOException {
         System.out.println("How many players?");
         String amountPlayers = reader.readLine();
@@ -58,7 +53,7 @@ public final class JackManager {
             askForPlayerCount(maxPlayer);
         }
     }
-
+    //adds players based on Player count and gives them cards
     private void newPlayer(int i) throws IOException {
         System.out.println("Player " + i + ", please enter your name!");
         String name = reader.readLine();
@@ -69,15 +64,17 @@ public final class JackManager {
         card = CardManager.newCard();
         int returnV = player.addPoints(card, true);
         System.out.println(name + " drew the " + card.getName());
+        //incase they somehow win/lose immediately
         if (returnV == 2) {
             System.out.println(player.getName() + " was eliminated!");
         } else if (returnV == 1) {
             System.out.println(player.getName() + " wins with " + player.getPoints());
         }
     }
-
+    //Game loop
     private void game() throws IOException {
         while(true) {
+            //is the amount of cards left higher than players left
             if (((CardManager.getDecks() * 52) - CardManager.assignedCardsLength()) < players.size()) {
                 System.out.println("Game Over!");
                 ArrayList<Integer> values = new ArrayList<>();
@@ -91,23 +88,25 @@ public final class JackManager {
                         winners.add(player);
                     }
                 }
-                for (Player player : winners) {
+                for (Player player : winners) { //Does a player win
                     System.out.println(player.getName() + " wins with " + player.getPoints());
                 }
                 return;
-            } else if(players.size() == 1) {
+            } else if(players.size() == 1) { // last man standing (wins as last player left)
                 System.out.println(players.get(0).getName() + " wins with " + players.get(0).getPoints());
                 return;
             }
+            //Array list
             ArrayList<Player> killed = new ArrayList<>();
             ArrayList<Player> passed = new ArrayList<>();
             for (Player player : players) {
+                //question player
                 if (!player.getName().equals("Computer")) {
                     System.out.println(player.getName() + " it's your turn!");
                     System.out.println("Do you wish to pick a card?");
                     System.out.println("1 = True, 0 = False");
                     String returnValue = reader.readLine();
-                    if (returnValue.contains("1")) {
+                    if (returnValue.contains("1")) { //do they pick up a new card?
                         CardTypes card = CardManager.newCard();
                         System.out.println(player.getName() + " drew the " + card.getName());
                         int returnV = player.addPoints(card, true);
@@ -118,37 +117,26 @@ public final class JackManager {
                             System.out.println(player.getName() + " wins with " + player.getPoints());
                             return;
                         }
-                    } else if (returnValue.contains("0")) {
+                    } else if (returnValue.contains("0")) { //Does the current player skip their turn?
                         System.out.println(player.getName() + " skips");
                         passed.add(player);
                     }
-                    else {
+                    else { // same as top
                         System.out.println(player.getName() + " you can't type 1 or 0, you forfeit your turn.");
                         passed.add(player);
                     }
-                } else {
-                    /* if(player.getPoints() < 18) {
-                        CardTypes card = CardManager.newCard();
-                        System.out.println(player.getName() + " drew the " + card.getName());
-                        int returnV = player.addPoints(card, true);
-                        if (returnV == 2) {
-                            System.out.println(player.getName() + " was eliminated!");
-                            killed.add(player);
-                        } else if (returnV == 1) {
-                            System.out.println(player.getName() + " wins with " + player.getPoints());
-                            return;
-                        }
-                    } else {
-                        System.out.println(player.getName() + " skips");
-                    }*/
                 }
             }
+            //remove eliminated players from Arraylist players
             players.removeAll(killed);
+            //Did all players pass their turn?
             if(passed.size() == players.size() - 1){
+                //reveal dealer's second card
                 System.out.println("The secret card was the " + secretCard.getName() + "!");
                 while (true){
-                    ArrayList<Player> killedd = new ArrayList<>();
-                    if(dealer.getPoints() < 18) {
+                    //dealer picks up no more cards after they get a score of 18
+                    if(dealer.getPoints() <= 18) {
+                        //dealer draws a card plus all win/lose/draw again logic
                         CardTypes card = CardManager.newCard();
                         System.out.println(dealer.getName() + " drew the " + card.getName());
                         int returnV = dealer.addPoints(card, true);
@@ -159,6 +147,7 @@ public final class JackManager {
                             return;
                         }
                     } else {
+                        //check for winner by looking through all players left for highest point amount
                         ArrayList<Integer> values = new ArrayList<>();
                         ArrayList<Player> playerss = new ArrayList<>(players);
                         for (Player player : players) {
@@ -166,6 +155,7 @@ public final class JackManager {
                                 values.add(player.getPoints());
                             }
                         }
+                        //who won
                         int max = Collections.max(values);
                         ArrayList<Player> winners = new ArrayList<>();
                         for (Player player : playerss) {

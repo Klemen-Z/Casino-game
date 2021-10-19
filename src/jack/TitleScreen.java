@@ -1,4 +1,4 @@
-package main;
+package jack;
 
 public class TitleScreen {
 }

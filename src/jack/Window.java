@@ -1,4 +1,4 @@
-package main;
+package jack;
 import javax.swing.*;
 import java.awt.Color;
 public class Window extends JFrame

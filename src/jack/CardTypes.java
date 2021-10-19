@@ -1,6 +1,7 @@
-package main;
-
+package jack;
+//all cards defined with properties
 public enum CardTypes {
+    //cards
     Diamond_2("2 of Diamonds", 2),
     Diamond_3("3 of Diamonds", 3),
     Diamond_4("4 of Diamonds", 4),
@@ -53,22 +54,22 @@ public enum CardTypes {
     Club_Queen("Queen of Clubs", 10),
     Club_King("King of Clubs", 10),
     Club_Jack("Jack of Clubs", 10);
-
+    //vars for cards
     private final String name;
     private final int value;
-
+    //how cards are defined
     CardTypes(String name, int value){
         this.name = name;
         this.value = value;
     }
-
+    //ace logic if getting it is not going to raise you higher than 21 give 11 points else give 1 point
     public int getNewValue(int currentValue){
         if(this.value >= 11 && currentValue > 10){
             return currentValue + 1;
         }
         return currentValue + this.value;
     }
-
+    //get the name of a card
     public String getName() {
         return this.name;
     }
