@@ -74,6 +74,7 @@ public final class JackManager {
             System.out.println(player.getName() + " was eliminated!");
         } else if (returnV == 1) {
             System.out.println(player.getName() + " wins with " + player.getPoints());
+            return;
         }
     }
     //Game loop
