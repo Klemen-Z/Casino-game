@@ -13,7 +13,7 @@ public final class JackManager {
     private int amountOfPlayers;
     private final ArrayList<Player> players = new ArrayList<>();
     private final CardTypes secretCard;
-    private Player dealer;
+    private final Player dealer;
     //Game start
     public JackManager() throws IOException {
         reader = new BufferedReader(new InputStreamReader(System.in));
