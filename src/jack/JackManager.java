@@ -17,7 +17,7 @@ public final class JackManager {
     //Game start
     public JackManager() throws IOException {
         reader = new BufferedReader(new InputStreamReader(System.in));
-        askForPlayerCount(100);
+        askForPlayerCount(10);
         if(amountOfPlayers == 1){
             CardManager.setDeckSet(1);
         }
