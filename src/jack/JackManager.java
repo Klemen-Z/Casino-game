@@ -7,6 +7,12 @@ import java.util.ArrayList;
 import java.util.Collections;
 //Game Logic
 public final class JackManager {
+    //Winners list
+    ArrayList<Player> winners = new ArrayList<>();
+    //eliminated players list
+    ArrayList<Player> killed = new ArrayList<>();
+    //players who passed/forfeit their turn
+    ArrayList<Player> passed = new ArrayList<>();
     //input reader
     private final BufferedReader reader;
     //variables
@@ -74,12 +80,14 @@ public final class JackManager {
             System.out.println(player.getName() + " was eliminated!");
         } else if (returnV == 1) {
             System.out.println(player.getName() + " wins with " + player.getPoints());
-            return;
+            winners.add(player);
         }
     }
     //Game loop
     private void game() throws IOException {
         while(true) {
+            players.removeAll(winners);
+            players.removeAll(killed);
             //is the amount of cards left higher than players left
             if (((CardManager.getDecks() * 52) - CardManager.assignedCardsLength()) < players.size()) {
                 System.out.println("Game Over!");
@@ -88,7 +96,6 @@ public final class JackManager {
                     values.add(player.getPoints());
                 }
                 int max = Collections.max(values);
-                ArrayList<Player> winners = new ArrayList<>();
                 for (Player player : players) {
                     if (player.isEqualToPoints(max)) {
                         winners.add(player);
@@ -96,18 +103,16 @@ public final class JackManager {
                 }
                 for (Player player : winners) { //Does a player win
                     System.out.println(player.getName() + " wins with " + player.getPoints());
+                    return;
                 }
-                return;
             } else if(players.size() == 1) { // last man standing (wins as last player left)
                 System.out.println(players.get(0).getName() + " wins with " + players.get(0).getPoints());
                 return;
             }
             //Array list
-            ArrayList<Player> killed = new ArrayList<>();
-            ArrayList<Player> passed = new ArrayList<>();
             for (Player player : players) {
-                //question player
-                if (!player.getName().equals("Computer")) {
+                //question player for action
+                if (!player.getName().equalsIgnoreCase("computer")) {
                     System.out.println(player.getName() + " it's your turn!");
                     System.out.println("Do you wish to pick a card?");
                     System.out.println("1 = True, 0 = False");
@@ -120,8 +125,8 @@ public final class JackManager {
                             System.out.println(player.getName() + " was eliminated!");
                             killed.add(player);
                         } else if (returnV == 1) {
-                            System.out.println(player.getName() + " wins with " + player.getPoints());
-                            return;
+                            System.out.println(player.getName() + " achieved " + player.getPoints() + "points!");
+                            winners.add(player);
                         }
                     } else if (returnValue.contains("0")) { //Does the current player skip their turn?
                         System.out.println(player.getName() + " skips");
@@ -133,30 +138,54 @@ public final class JackManager {
                     }
                 }
             }
-            //remove eliminated players from Arraylist players
+            //remove winning and eliminated players from Arraylist players
+            players.removeAll(winners);
             players.removeAll(killed);
-            if(players.size() == 1){
+            if(players.size() == 1 && winners.size() < 1){
                 System.out.println("Computer wins by Default!");
                 return;
             }
+            else if(players.size() == 1 && winners.size() > 0){
+                players.addAll(winners);
+            }
             //Did all players pass their turn?
-            if(passed.size() == players.size() - 1){
+            if(passed.size() > players.size() - 1 || winners.size() > players.size() - 1){
                 //reveal dealer's second card
                 System.out.println("The secret card was the " + secretCard.getName() + "!");
                 while (true){
                     //dealer picks up no more cards after they get a score of 18
-                    if(dealer.getPoints() <= 18) {
+                    if(dealer.getPoints() <= 16) {
                         //dealer draws a card plus all win/lose/draw again logic
                         CardTypes card = CardManager.newCard();
                         System.out.println(dealer.getName() + " drew the " + card.getName());
                         int returnV = dealer.addPoints(card, true);
+                        boolean temp = false;
+                        for (Player player : winners){
+                            if (player.getPoints() == dealer.getPoints()){
+                                System.out.println(player.getName() + " and the dealer tied");
+                                temp = true;
+                            }
+                        }
+                        if (temp){
+                            return;
+                        }
                         if (returnV == 2) {
                             System.out.println(dealer.getName() + " was eliminated!");
                         } else if (returnV == 1) {
-                            System.out.println(dealer.getName() + " wins with " + dealer.getPoints());
+                            System.out.println(dealer.getName() + " won with " + dealer.getPoints() + "points!");
+                        }
+                    }
+                    else {
+                        boolean temp = false;
+                        for (Player player : winners){
+                            if (player.getPoints() == dealer.getPoints()){
+                                System.out.println(player.getName() + " and the dealer tied");
+                                temp = true;
+                            }
+                        }
+                        if (temp){
                             return;
                         }
-                    } else {
                         //check for winner by looking through all players left for highest point amount
                         ArrayList<Integer> values = new ArrayList<>();
                         ArrayList<Player> playerss = new ArrayList<>(players);
@@ -167,7 +196,6 @@ public final class JackManager {
                         }
                         //who won
                         int max = Collections.max(values);
-                        ArrayList<Player> winners = new ArrayList<>();
                         for (Player player : playerss) {
                             if (player.isEqualToPoints(max)) {
                                 winners.add(player);
