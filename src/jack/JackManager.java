@@ -79,13 +79,14 @@ public final class JackManager {
         if (returnV == 2) {
             System.out.println(player.getName() + " was eliminated!");
         } else if (returnV == 1) {
-            System.out.println(player.getName() + " wins with " + player.getPoints());
+            System.out.println(player.getName() + " got a Blackjack!");
             winners.add(player);
         }
     }
     //Game loop
     private void game() throws IOException {
         while(true) {
+            //safety rope for removal
             players.removeAll(winners);
             players.removeAll(killed);
             //is the amount of cards left higher than players left
@@ -95,11 +96,16 @@ public final class JackManager {
                 for (Player player : players) {
                     values.add(player.getPoints());
                 }
+                boolean temp = false;
                 int max = Collections.max(values);
                 for (Player player : players) {
                     if (player.isEqualToPoints(max)) {
                         winners.add(player);
+                        temp = true;
                     }
+                }
+                if(temp){
+                    return;
                 }
                 for (Player player : winners) { //Does a player win
                     System.out.println(player.getName() + " wins with " + player.getPoints());
@@ -141,12 +147,25 @@ public final class JackManager {
             //remove winning and eliminated players from Arraylist players
             players.removeAll(winners);
             players.removeAll(killed);
-            if(players.size() == 1 && winners.size() < 1){
+            players.removeAll(passed);
+            if(players.size() == 1 && winners.size() < 1 && passed.size() < 1){
                 System.out.println("Computer wins by Default!");
                 return;
             }
             else if(players.size() == 1 && winners.size() > 0){
-                players.addAll(winners);
+                for(Player player : winners){
+                    if(!players.contains(player)){
+                        players.addAll(Collections.singleton(player));
+                    }
+                }
+            }
+            //re add passed players, so they can continue playing and clear passed arraylist
+            if (passed.size() > 0){
+                for(Player player : passed){
+                    if(!players.contains(player)){
+                        players.addAll(Collections.singleton(player));
+                    }
+                }
             }
             //Did all players pass their turn?
             if(passed.size() > players.size() - 1 || winners.size() > players.size() - 1){
@@ -172,7 +191,7 @@ public final class JackManager {
                         if (returnV == 2) {
                             System.out.println(dealer.getName() + " was eliminated!");
                         } else if (returnV == 1) {
-                            System.out.println(dealer.getName() + " won with " + dealer.getPoints() + "points!");
+                            System.out.println(dealer.getName() + " achieved " + dealer.getPoints() + "points!");
                         }
                     }
                     else {
