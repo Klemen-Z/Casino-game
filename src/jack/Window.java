@@ -3,7 +3,7 @@ import javax.swing.*;
 import java.awt.Color;
 public class Window extends JFrame
 {
-    Window()
+    public Window()
     {
         ImageIcon image = new ImageIcon("Logo.png");
 
