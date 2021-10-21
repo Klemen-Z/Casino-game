@@ -75,7 +75,7 @@ public final class JackManager {
         card = CardManager.newCard();
         int returnV = player.addPoints(card, true);
         System.out.println(name + " drew the " + card.getName());
-        //incase they somehow win/lose immediately
+        //in case they somehow win/lose immediately
         if (returnV == 2) {
             System.out.println(player.getName() + " was eliminated!");
         } else if (returnV == 1) {
@@ -207,7 +207,7 @@ public final class JackManager {
                         }
                         //check for winner by looking through all players left for highest point amount
                         ArrayList<Integer> values = new ArrayList<>();
-                        ArrayList<Player> playerss = new ArrayList<>(players);
+                        ArrayList<Player> playersS = new ArrayList<>(players);
                         for (Player player : players) {
                             if(player.getPoints() <= 21) {
                                 values.add(player.getPoints());
@@ -215,7 +215,7 @@ public final class JackManager {
                         }
                         //who won
                         int max = Collections.max(values);
-                        for (Player player : playerss) {
+                        for (Player player : playersS) {
                             if (player.isEqualToPoints(max)) {
                                 winners.add(player);
                             }
