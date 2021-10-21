@@ -155,7 +155,7 @@ public final class JackManager {
             else if(players.size() == 1 && winners.size() > 0){
                 for(Player player : winners){
                     if(!players.contains(player)){
-                        players.addAll(Collections.singleton(player));
+                        players.add(player);
                     }
                 }
             }
