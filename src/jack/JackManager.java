@@ -193,6 +193,9 @@ public final class JackManager {
             if(players.size() == 1 && winners.size() < 1 && passed.size() < 1){
                 System.out.println("Computer wins by Default!");
                 //Todo winner frame (lose)
+                Lose lose = new Lose();
+                frame.add(lose);
+                frame.getComponentZOrder(lose, 0);
                 return;
             }
             else if(players.size() == 1 && winners.size() > 0){
@@ -234,6 +237,9 @@ public final class JackManager {
                         }
                         if (temp){
                             //Todo winner frame (tie)
+                            Draw draw = new Draw();
+                            frame.add(draw);
+                            frame.getComponentZOrder(draw, 0);
                             return;
                         }
                         if (returnV == 2) {
@@ -252,6 +258,9 @@ public final class JackManager {
                         }
                         if (temp){
                             //Todo winner frame (tie)
+                            Draw draw = new Draw();
+                            frame.add(draw);
+                            frame.getComponentZOrder(draw, 0);
                             return;
                         }
                         //check for winner by looking through all players left for highest point amount
