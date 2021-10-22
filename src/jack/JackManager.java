@@ -195,7 +195,7 @@ public final class JackManager {
                 //Todo winner frame (lose)
                 Lose lose = new Lose();
                 frame.add(lose);
-                frame.getComponentZOrder(lose, 0);
+                frame.setComponentZOrder(lose, 0);
                 return;
             }
             else if(players.size() == 1 && winners.size() > 0){
@@ -237,9 +237,12 @@ public final class JackManager {
                         }
                         if (temp){
                             //Todo winner frame (tie)
-                            Draw draw = new Draw();
+                            JLabel draw = new JLabel();
+                            ImageIcon imageD = new ImageIcon("draw.png");
+                            draw.setBounds(0, 0, 1000, 700);
+                            draw.setIcon(imageD);
                             frame.add(draw);
-                            frame.getComponentZOrder(draw, 0);
+                            frame.setComponentZOrder(draw, 0);
                             return;
                         }
                         if (returnV == 2) {
@@ -260,7 +263,7 @@ public final class JackManager {
                             //Todo winner frame (tie)
                             Draw draw = new Draw();
                             frame.add(draw);
-                            frame.getComponentZOrder(draw, 0);
+                            frame.setComponentZOrder(draw, 0);
                             return;
                         }
                         //check for winner by looking through all players left for highest point amount
@@ -283,7 +286,7 @@ public final class JackManager {
                             //Todo winner frame (win)
                             Win win = new Win();
                             frame.add(win);
-                            frame.getComponentZOrder(win, 0);
+                            frame.setComponentZOrder(win, 0);
                         }
                         return;
                     }
