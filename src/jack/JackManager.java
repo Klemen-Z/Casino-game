@@ -272,6 +272,7 @@ public final class JackManager {
                         for (Player player : winners) {
                             System.out.println(player.getName() + " wins with " + player.getPoints());
                             //Todo winner frame (win)
+                            Win win = new Win();
                             frame.add(win);
                             frame.getComponentZOrder(win, 0);
                         }
