@@ -192,8 +192,7 @@ public final class JackManager {
             players.removeAll(passed);
             if(players.size() == 1 && winners.size() < 1 && passed.size() < 1){
                 System.out.println("Computer wins by Default!");
-                frame.dispose();
-                //Todo winner frame
+                //Todo winner frame (lose)
                 return;
             }
             else if(players.size() == 1 && winners.size() > 0){
@@ -234,8 +233,7 @@ public final class JackManager {
                             }
                         }
                         if (temp){
-                            frame.dispose();
-                            //Todo winner frame
+                            //Todo winner frame (tie)
                             return;
                         }
                         if (returnV == 2) {
@@ -253,8 +251,7 @@ public final class JackManager {
                             }
                         }
                         if (temp){
-                            frame.dispose();
-                            //Todo winner frame
+                            //Todo winner frame (tie)
                             return;
                         }
                         //check for winner by looking through all players left for highest point amount
@@ -274,8 +271,9 @@ public final class JackManager {
                         }
                         for (Player player : winners) {
                             System.out.println(player.getName() + " wins with " + player.getPoints());
-                            frame.dispose();
-                            //Todo winner frame
+                            //Todo winner frame (win)
+                            frame.add(win);
+                            frame.getComponentZOrder(win, 0);
                         }
                         return;
                     }

@@ -89,4 +89,6 @@ public class Frame extends JFrame implements ActionListener
 			hitbutton.setEnabled(false);
 		}
 	}
+	public void getComponentZOrder(Win win, int i) {
+	}
 }
