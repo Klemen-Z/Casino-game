@@ -224,13 +224,15 @@ public final class JackManager {
                 frame.valuec.setText(Integer.toString(getdPoints()));
                 while (true){
                     //dealer picks up no more cards after they get a score of 18
-                    if(dealer.getPoints() <= 16) {
+                    if(dealer.getPoints() <= 17) {
                         //dealer draws a cards plus all win/lose/draw again logic
                         CardTypes card = CardManager.newCard();
                         System.out.println(dealer.getName() + " drew the " + card.getName());
                         int returnV = dealer.addPoints(card, true);
                         dPoints = dealer.getPoints();
-                        frame.valuec.setText(Integer.toString(getdPoints()));
+                        while(!frame.valuec.getText().equalsIgnoreCase(Integer.toString(dPoints))){
+                            frame.valuec.setText(Integer.toString(getdPoints()));
+                        }
                         boolean temp = false;
                         for (Player player : winners){
                             if (player.getPoints() == dealer.getPoints()){
