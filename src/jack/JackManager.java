@@ -242,6 +242,7 @@ public final class JackManager {
                         }
                         if (temp){
                             //Todo winner frame (tie)
+                            frame.value.setText(Integer.toString(getpPoints()));
                             JLabel draw = new JLabel();
                             ImageIcon imageD = new ImageIcon("draw.png");
                             draw.setBounds(0, 0, 1000, 700);
@@ -266,6 +267,7 @@ public final class JackManager {
                         }
                         if (temp){
                             //Todo winner frame (tie)
+                            frame.value.setText(Integer.toString(getpPoints()));
                             JLabel draw = new JLabel();
                             ImageIcon imageD = new ImageIcon("draw.png");
                             draw.setBounds(0, 0, 1000, 700);
@@ -292,6 +294,7 @@ public final class JackManager {
                         for (Player player : winners) {
                             System.out.println(player.getName() + " wins with " + player.getPoints());
                             //Todo winner frame (win)
+                            frame.value.setText(Integer.toString(getpPoints()));
                             JLabel win = new JLabel();
                             ImageIcon imageW = new ImageIcon("win.png");
                             win.setBounds(0, 0, 1000, 700);
