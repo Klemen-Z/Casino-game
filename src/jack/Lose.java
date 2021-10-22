@@ -5,8 +5,9 @@ public class Lose extends JLabel
 {
     Lose()
     {
-        ImageIcon image = new ImageIcon("lose.png");
+        ImageIcon imageL = new ImageIcon("lose.png");
         this.setBounds(0, 0, 1000, 700);
-        this.setIcon(image);
+        this.setComponentZOrder(this, 0);
+        this.setIcon(imageL);
     }
 }

@@ -5,8 +5,9 @@ public class Draw extends JLabel
 {
     Draw()
     {
-        ImageIcon image = new ImageIcon("draw.png");
+        ImageIcon imageD = new ImageIcon("draw.png");
         this.setBounds(0, 0, 1000, 700);
-        this.setIcon(image);
+        this.setComponentZOrder(this, 0);
+        this.setIcon(imageD);
     }
 }

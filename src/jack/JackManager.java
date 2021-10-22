@@ -193,7 +193,10 @@ public final class JackManager {
             if(players.size() == 1 && winners.size() < 1 && passed.size() < 1){
                 System.out.println("Computer wins by Default!");
                 //Todo winner frame (lose)
-                Lose lose = new Lose();
+                JLabel lose = new JLabel();
+                ImageIcon imageL = new ImageIcon("lose.png");
+                lose.setBounds(0, 0, 1000, 700);
+                lose.setIcon(imageL);
                 frame.add(lose);
                 frame.setComponentZOrder(lose, 0);
                 return;
@@ -261,7 +264,10 @@ public final class JackManager {
                         }
                         if (temp){
                             //Todo winner frame (tie)
-                            Draw draw = new Draw();
+                            JLabel draw = new JLabel();
+                            ImageIcon imageD = new ImageIcon("draw.png");
+                            draw.setBounds(0, 0, 1000, 700);
+                            draw.setIcon(imageD);
                             frame.add(draw);
                             frame.setComponentZOrder(draw, 0);
                             return;
@@ -284,7 +290,10 @@ public final class JackManager {
                         for (Player player : winners) {
                             System.out.println(player.getName() + " wins with " + player.getPoints());
                             //Todo winner frame (win)
-                            Win win = new Win();
+                            JLabel win = new JLabel();
+                            ImageIcon imageW = new ImageIcon("win.png");
+                            win.setBounds(0, 0, 1000, 700);
+                            win.setIcon(imageW);
                             frame.add(win);
                             frame.setComponentZOrder(win, 0);
                         }
