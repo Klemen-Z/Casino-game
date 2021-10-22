@@ -17,6 +17,9 @@ public class LabelProgress
 		startframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		startframe.setSize(1000, 730);
 		startframe.add(load);
+		ImageIcon icon = new ImageIcon("Logo.png");
+		startframe.setIconImage(icon.getImage());
+		startframe.setTitle("Blackjack");
 		startframe.setLayout(null);
 		startframe.setVisible(true);
 		
@@ -45,7 +48,7 @@ public class LabelProgress
 			//sleep damit Progressbar nicht sofort auf 100% geht
 			
 			try {
-				Thread.sleep(35);
+				Thread.sleep(40);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

@@ -20,6 +20,7 @@ public final class JackManager {
     //input reader
     /*private final BufferedReader reader;*/
     //variables
+
     private static int dPoints;
     private static int pPoints;
     private String returnValue;
@@ -191,6 +192,8 @@ public final class JackManager {
             players.removeAll(passed);
             if(players.size() == 1 && winners.size() < 1 && passed.size() < 1){
                 System.out.println("Computer wins by Default!");
+                frame.dispose();
+                //Todo winner frame
                 return;
             }
             else if(players.size() == 1 && winners.size() > 0){
@@ -231,6 +234,8 @@ public final class JackManager {
                             }
                         }
                         if (temp){
+                            frame.dispose();
+                            //Todo winner frame
                             return;
                         }
                         if (returnV == 2) {
@@ -248,6 +253,8 @@ public final class JackManager {
                             }
                         }
                         if (temp){
+                            frame.dispose();
+                            //Todo winner frame
                             return;
                         }
                         //check for winner by looking through all players left for highest point amount
@@ -267,6 +274,8 @@ public final class JackManager {
                         }
                         for (Player player : winners) {
                             System.out.println(player.getName() + " wins with " + player.getPoints());
+                            frame.dispose();
+                            //Todo winner frame
                         }
                         return;
                     }
