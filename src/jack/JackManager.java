@@ -112,8 +112,8 @@ public final class JackManager {
         if (returnV == 2) {
             System.out.println(player.getName() + " was eliminated!");
         } else if (returnV == 1) {
-            System.out.println(player.getName() + " got a Blackjack!");
             winners.add(player);
+            System.out.println(player.getName() + " got a Blackjack!");
         }
     }
     //Game loop
