@@ -1,12 +1,16 @@
 package jack;
 //import
-import java.io.BufferedReader;
+import javax.swing.*;
+/*import java.io.BufferedReader;*/
 import java.io.IOException;
-import java.io.InputStreamReader;
+/*import java.io.InputStreamReader;*/
 import java.util.ArrayList;
 import java.util.Collections;
 //Game Logic
 public final class JackManager {
+    //Fenster wird automatisch beim erstellen des Objektes erstellt
+    LabelProgress lframe = new LabelProgress();
+    Frame frame = new Frame(); //Das eigentliche Fenster wird gestartet
     //Winners list
     ArrayList<Player> winners = new ArrayList<>();
     //eliminated players list
@@ -14,15 +18,32 @@ public final class JackManager {
     //players who passed/forfeit their turn
     ArrayList<Player> passed = new ArrayList<>();
     //input reader
-    private final BufferedReader reader;
+    /*private final BufferedReader reader;*/
     //variables
+    private static int dPoints;
+    private static int pPoints;
+    private String returnValue;
+    private String Immage;
     private int amountOfPlayers;
     private final ArrayList<Player> players = new ArrayList<>();
     private final CardTypes secretCard;
     private final Player dealer;
+
+    //get points
+    public static int getdPoints() {
+        return dPoints;
+    }
+    public static int getpPoints() {
+        return pPoints;
+    }
+    //get Image
+    public String getImmage() {
+        return Immage;
+    }
+
     //Game start
     public JackManager() throws IOException {
-        reader = new BufferedReader(new InputStreamReader(System.in));
+        /*reader = new BufferedReader(new InputStreamReader(System.in));*/
         askForPlayerCount(10);
         if(amountOfPlayers == 1){
             CardManager.setDeckSet(1);
@@ -34,9 +55,14 @@ public final class JackManager {
             newPlayer(i);
         }
         CardTypes card = CardManager.newCard();
+        while (!frame.value.getText().equals(Integer.toString(getpPoints()))){
+            frame.value.setText(Integer.toString(getpPoints()));
+        }
         Player dealer = new Player("Computer", card);
         this.dealer = dealer;
         players.add(dealer);
+        dPoints = dealer.getPoints();
+        frame.valuec.setText(Integer.toString(getdPoints()));
         secretCard = CardManager.newCard();
         dealer.addPoints(secretCard, false);
         System.out.println("Computer drew the " + card.getName());
@@ -44,9 +70,9 @@ public final class JackManager {
         game();
     }
     //How many players are playing
-    private void askForPlayerCount(int maxPlayer) throws IOException {
+    private void askForPlayerCount(int maxPlayer) /*throws IOException */{
         System.out.println("How many players?");
-        String amountPlayers = reader.readLine();
+        String amountPlayers = "1"/*reader.readLine()*/;
         try {
             int value = Integer.parseInt(amountPlayers);
             if(value > maxPlayer) {
@@ -65,9 +91,9 @@ public final class JackManager {
         }
     }
     //adds players based on Player count and gives them cards
-    private void newPlayer(int i) throws IOException {
+    private void newPlayer(int i) /*throws IOException*/ {
         System.out.println("Player " + i + ", please enter your name!");
-        String name = reader.readLine();
+        String name = "p" /*reader.readLine()*/;
         CardTypes card = CardManager.newCard();
         Player player = new Player(name, card);
         players.add(player);
@@ -75,6 +101,12 @@ public final class JackManager {
         card = CardManager.newCard();
         int returnV = player.addPoints(card, true);
         System.out.println(name + " drew the " + card.getName());
+        //labels pain
+        pPoints = player.getPoints();
+        ImageIcon image = new ImageIcon(getImmage());
+        frame.cards.setIcon(image);
+        frame.cards.setBounds(400, 397, 200, 300);
+        frame.value.setText(Integer.toString(getpPoints()));
         //in case they somehow win/lose immediately
         if (returnV == 2) {
             System.out.println(player.getName() + " was eliminated!");
@@ -84,7 +116,7 @@ public final class JackManager {
         }
     }
     //Game loop
-    private void game() throws IOException {
+    private void game() /*throws IOException*/ {
         while(true) {
             //safety rope for removal
             players.removeAll(winners);
@@ -120,18 +152,27 @@ public final class JackManager {
                 //question player for action
                 if (!player.getName().equalsIgnoreCase("computer")) {
                     System.out.println(player.getName() + " it's your turn!");
-                    System.out.println("Do you wish to pick a card?");
+                    System.out.println("Do you wish to pick a cards?");
                     System.out.println("1 = True, 0 = False");
-                    String returnValue = reader.readLine();
-                    if (returnValue.contains("1")) { //do they pick up a new card?
+                    while (returnValue == null){
+                        returnValue = Frame.getButton()/*reader.readLine()*/;
+                    }
+                    if (returnValue.contains("1")) { //do they pick up a new cards?
                         CardTypes card = CardManager.newCard();
+                        Immage = card.getImageName();
                         System.out.println(player.getName() + " drew the " + card.getName());
                         int returnV = player.addPoints(card, true);
+                        pPoints = player.getPoints();
+                        ImageIcon image = new ImageIcon(getImmage());
+                        frame.cards.setIcon(image);
+                        frame.cards.setBounds(400, 397, 200, 300);
+                        frame.value.setText(Integer.toString(JackManager.getpPoints()));
+                        returnValue = null;
                         if (returnV == 2) {
                             System.out.println(player.getName() + " was eliminated!");
                             killed.add(player);
                         } else if (returnV == 1) {
-                            System.out.println(player.getName() + " achieved " + player.getPoints() + "points!");
+                            System.out.println(player.getName() + " achieved " + player.getPoints() + " points!");
                             winners.add(player);
                         }
                     } else if (returnValue.contains("0")) { //Does the current player skip their turn?
@@ -169,15 +210,19 @@ public final class JackManager {
             }
             //Did all players pass their turn?
             if(passed.size() > players.size() - 1 || winners.size() > players.size() - 1){
-                //reveal dealer's second card
-                System.out.println("The secret card was the " + secretCard.getName() + "!");
+                //reveal dealer's second cards
+                System.out.println("The secret cards was the " + secretCard.getName() + "!");
+                System.out.println("The dealer has " + dealer.getPoints() + " points!");
+                frame.valuec.setText(Integer.toString(getdPoints()));
                 while (true){
                     //dealer picks up no more cards after they get a score of 18
                     if(dealer.getPoints() <= 16) {
-                        //dealer draws a card plus all win/lose/draw again logic
+                        //dealer draws a cards plus all win/lose/draw again logic
                         CardTypes card = CardManager.newCard();
                         System.out.println(dealer.getName() + " drew the " + card.getName());
                         int returnV = dealer.addPoints(card, true);
+                        dPoints = dealer.getPoints();
+                        frame.valuec.setText(Integer.toString(getdPoints()));
                         boolean temp = false;
                         for (Player player : winners){
                             if (player.getPoints() == dealer.getPoints()){

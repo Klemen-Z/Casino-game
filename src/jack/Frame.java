@@ -1,5 +1,4 @@
 package jack;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -7,27 +6,42 @@ import java.awt.event.ActionListener;
 
 public class Frame extends JFrame implements ActionListener
 {
-	JButton hitbutton; //Damit hitbutton �berall verwendet werden kann
+	//image get from JackManager
+	JButton hitbutton; //Damit hitbutton überall verwendet werden kann
 	JButton standbutton;
-	Frame()
-	{
-		//Einstellungen f�r das Hauptfenster
-		LabelBackground background = new LabelBackground(); //Label f�r Background
-		LabelPlayerValue value = new LabelPlayerValue(); //Label f�r visuellen Punktewert
+	JLabel cards;
+	LabelPlayerValue value;
+	LabelComputerValue valuec;
+	private static String button;
+	//get the button output
+	public static String getButton(){
+		return button;
+	}
+	//set the button value
+	public static void setButton(String Button){
+		button = Button;
+	}
+	Frame() {
+		//Einstellungen für das Hauptfenster
+
+		LabelBackground background = new LabelBackground(); //Label für Background
+		cards = new JLabel(); //Label für Karte
+		value = new LabelPlayerValue(); //Label für visuellen Punktewert
+		valuec = new LabelComputerValue(); //Label für Computerpunktestand
 		ImageIcon icon = new ImageIcon("Logo.png");
-		
+
 		this.setTitle("Blackjack");
-		this.setSize(1000, 800);
+		this.setSize(1000, 730);
 		this.setIconImage(icon.getImage());
 		this.setVisible(true);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setBackground(Color.black);
 		this.setResizable(false);
-		
+
 		//Hier wird der Hit Button definiert
-		
+
 		hitbutton = new JButton();
-		
+
 		ImageIcon hit = new ImageIcon("Hit.png");
 		hitbutton.setBounds(150, 560, 200, 100);
 		hitbutton.setIcon(hit);
@@ -35,11 +49,11 @@ public class Frame extends JFrame implements ActionListener
 		hitbutton.setContentAreaFilled(false);
 		hitbutton.setBorderPainted(false);
 		hitbutton.addActionListener(this);
-		
+
 		//Hier wird der Stand Button definiert
-		
+
 		standbutton = new JButton();
-		
+
 		ImageIcon stand = new ImageIcon("Stand.png");
 		standbutton.setBounds(150, 430, 200, 100);
 		standbutton.setIcon(stand);
@@ -47,25 +61,30 @@ public class Frame extends JFrame implements ActionListener
 		standbutton.setContentAreaFilled(false);
 		standbutton.setBorderPainted(false);
 		standbutton.addActionListener(this);
-		
+
 		//Zuordnung der Labels und Buttons in JFrame
-		
 		this.add(value);
+		this.add(valuec);
+		this.add(cards);
 		this.add(hitbutton);
 		this.add(standbutton);
 		this.add(background);
+		cards.setVisible(true);
+		//Wert im Label am start ändern
+		value.setText(Integer.toString(JackManager.getpPoints()));
 	}
 
 	public void actionPerformed(ActionEvent e)
 	{
 		if(e.getSource()==hitbutton)
 		{
-			hitbutton.setEnabled(false); //Verhindert spaming
-			standbutton.setEnabled(false);
+			cards.setVisible(true);
+			setButton("1");
 			//Do actions here when hitbutton is pressed
 		}
-		if(e.getSource()==standbutton) 
+		else if(e.getSource()==standbutton)
 		{
+			setButton("0");
 			standbutton.setEnabled(false); //Verhindert spaming
 			hitbutton.setEnabled(false);
 		}

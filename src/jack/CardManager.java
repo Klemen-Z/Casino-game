@@ -6,17 +6,17 @@ import java.util.Random;
 public final class CardManager {
     //Arraylist of all cards generated so far
     private static final ArrayList<CardTypes> assignedCards = new ArrayList<>();
-    //how many occurrences of a card are possible
+    //how many occurrences of a cards are possible
     static int decks = 0;
-    //card generation
+    //cards generation
     public static CardTypes newCard() {
         CardTypes[] allTypes = CardTypes.values();
         while(true){
             //pick random cards
             int randomInt = new Random().nextInt(51);
-            //if a card has come up more than possible ie more than one per deck generate new card
+            //if a cards has come up more than possible ie more than one per deck generate new cards
             if(Collections.frequency(assignedCards, allTypes[randomInt]) < decks) {
-                //add generated card to Arraylist of generated cards
+                //add generated cards to Arraylist of generated cards
                 assignedCards.add(allTypes[randomInt]);
                 return allTypes[randomInt];
             }
