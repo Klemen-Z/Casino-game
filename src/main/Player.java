@@ -1,4 +1,4 @@
-package jack;
+package main;
 
 public final class Player {
     //vars for player

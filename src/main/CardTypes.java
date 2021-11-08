@@ -1,4 +1,4 @@
-package jack;
+package main;
 
 //all cards defined with properties
 public enum CardTypes {

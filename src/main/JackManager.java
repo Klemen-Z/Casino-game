@@ -1,4 +1,4 @@
-package jack;
+package main;
 //import
 import javax.swing.*;
 /*import java.io.BufferedReader;*/

@@ -1,4 +1,4 @@
-package jack;
+package main;
 import javax.swing.*;
 
 public class Lose extends JLabel
