@@ -41,7 +41,7 @@ public class LabelProgress
 	{
 		int x = 0; //Fürs zählen
 		
-		while(x < 101) 
+		while(x <= 100)
 		{
 			bar.setValue(x);
 			
